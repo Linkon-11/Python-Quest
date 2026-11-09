@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Python Quest</title>
+<style>
+:root{--bg:#f3f6fa;--card:#fff;--ink:#14213d;--mut:#5b6b85;--line:#d5deea;--blue:#3776ab;--yel:#ffd43b;--ok:#1f8a4c;--bad:#c0392b;--code:#eaf0f8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1b2d;--card:#172740;--ink:#e8eefb;--mut:#9fb0cc;--line:#2a3d5e;--blue:#6aa8e0;--ok:#4cc27f;--bad:#ff7b6b;--code:#0c1626}}
+:root[data-theme="dark"]{--bg:#0f1b2d;--card:#172740;--ink:#e8eefb;--mut:#9fb0cc;--line:#2a3d5e;--blue:#6aa8e0;--ok:#4cc27f;--bad:#ff7b6b;--code:#0c1626}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Georgia,"Times New Roman",serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+h1{font:800 26px/1.1 "Trebuchet MS",Verdana,sans-serif;margin:0;color:var(--blue)}
+.st{display:flex;gap:8px;font:600 14px "Trebuchet MS",Verdana,sans-serif}
+.st span{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:3px 10px}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:6px 0 14px}.bar i{display:block;height:100%;background:var(--yel);transition:width .3s}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.w{background:var(--card);border:2px solid var(--line);border-radius:10px;padding:12px;text-align:left;color:var(--ink);font:inherit;cursor:pointer}
+.w b{font:700 16px "Trebuchet MS",Verdana,sans-serif;display:block}.w small{color:var(--mut)}
+.w:disabled{opacity:.45;cursor:not-allowed}.w.d{border-color:var(--ok)}
+.w:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--yel);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+pre,code{font-family:Consolas,"Courier New",monospace}pre{background:var(--code);border-radius:8px;padding:12px;overflow-x:auto;margin:10px 0;font-size:15px;line-height:1.5}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}pre code{padding:0;background:none}
+.btn,.o{font:600 15px "Trebuchet MS",Verdana,sans-serif;border:2px solid var(--blue);background:var(--blue);color:#fff;border-radius:8px;padding:9px 16px;cursor:pointer}
+:root:not([data-theme="light"]) .btn{color:#0f1b2d}
+.o{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border-color:var(--line);margin:6px 0;font-family:Consolas,"Courier New",monospace;white-space:pre-wrap}
+.o:hover:not(:disabled){border-color:var(--blue)}.o.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--card))}.o.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 18%,var(--card))}
+.ghost{background:none;color:var(--blue)}
+input.f{font:15px Consolas,"Courier New",monospace;width:11ch;border:2px solid var(--blue);border-radius:6px;padding:2px 6px;background:var(--card);color:var(--ink)}
+.fb{margin-top:12px;padding:10px 12px;border-radius:8px;border-left:5px solid}.fb.g{border-color:var(--ok)}.fb.x{border-color:var(--bad)}
+.pool{display:flex;flex-direction:column;gap:6px;min-height:40px}.slot{border:2px dashed var(--line);border-radius:8px;padding:6px;margin:8px 0;min-height:52px}
+.t{font:700 13px "Trebuchet MS",Verdana,sans-serif;color:var(--mut)}
+</style></head><body><main>
+<header><h1>🐍 Python Quest</h1><div class="st" id="st"></div></header>
+<div class="bar"><i id="xb"></i></div>
+<div id="app"></div>
+</main>
+<script>
+const W=[
+{n:"Hello, Variables",e:"👋",l:`<p>Python reads top to bottom. <code>print()</code> shows output, and a <b>variable</b> is a name that points at a value. The four starter types are <code>int</code>, <code>float</code>, <code>str</code> and <code>bool</code>. Python decides the type for you.</p><pre><code>x = 5          # int
+price = 2.5    # float
+name = "Ada"   # str
+ok = True      # bool
+print(7 // 2, 7 % 2, 2 ** 3)  # 3 1 8</code></pre><p><code>//</code> floors a division, <code>%</code> gives the remainder, and <code>**</code> is a power. Convert with <code>int()</code>, <code>float()</code>, <code>str()</code>.</p>`,
+q:[["o",`x = 5
+y = 2
+print(x // y, x % y)`,["2.5 1","2 1","3 1","2 2"],1,"5 // 2 is 2 (floor division) and 5 % 2 is the remainder, 1."],
+["f","Convert 3.7 to the integer 3:\nprint(___(3.7))",["int"],"int() drops the decimal part, so int(3.7) is 3."],
+["b",["name = \"Ada\"","print(\"Hi \" + name)","age = 36","print(\"Age: \" + age)"],3,"You can’t add a str and an int. Use str(age) or an f-string."]]},
+{n:"Strings",e:"🔤",l:`<p>Strings are sequences of characters. Index from 0, count backwards with negatives, and slice with <code>[start:stop]</code> (stop is excluded). Strings are <b>immutable</b>: methods return new strings.</p><pre><code>s = "python"
+s[0]      # 'p'
+s[-1]     # 'n'
+s[1:4]    # 'yth'
+s.upper() # 'PYTHON'
+f"{s} has {len(s)} letters"</code></pre><p>Useful methods: <code>split</code>, <code>join</code>, <code>strip</code>, <code>replace</code>, <code>find</code>, <code>startswith</code>.</p>`,
+q:[["o",`s = "python"
+print(s[1:4], s[-1])`,["pyt n","yth n","yth o","ytho n"],1,"s[1:4] takes indexes 1, 2, 3 which is 'yth'. s[-1] is the last letter, 'n'."],
+["f","Make an f-string:\nname = \"Ada\"\nprint(___\"Hello, {name}!\")",["f"],"A leading f lets you put expressions inside {braces}."],
+["r","Order the lines to print a title-cased greeting:",["text = \"hello world\"","title = text.title()","print(title)"],"Define the string, transform it, then print the result."]]},
+{n:"Decisions",e:"🔀",l:`<p><code>if</code>, <code>elif</code> and <code>else</code> choose a path. Indentation (4 spaces) defines the block. Compare with <code>== != &lt; &gt; &lt;= &gt;=</code> and combine with <code>and</code>, <code>or</code>, <code>not</code>.</p><pre><code>if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+else:
+    grade = "C"</code></pre><p>Empty things (<code>0</code>, <code>""</code>, <code>[]</code>, <code>None</code>) count as False. Everything else is True.</p>`,
+q:[["o",`n = 15
+if n % 3 == 0 and n % 5 == 0:
+    print("FizzBuzz")
+elif n % 3 == 0:
+    print("Fizz")
+else:
+    print(n)`,["Fizz","FizzBuzz","15","Buzz"],1,"15 is divisible by both, so the first branch runs and the rest are skipped."],
+["f","Check equality:\nif x ___ 5:\n    print(\"five\")",["=="],"A single = assigns; == compares."],
+["b",["score = 82","if score >= 90:","    grade = \"A\"","else if score >= 80:","    grade = \"B\""],3,"Python spells it elif, not else if."]]},
+{n:"Loops",e:"🔁",l:`<p><code>for</code> walks over any iterable. <code>range(a, b)</code> gives a up to b-1. <code>while</code> repeats while a condition holds. <code>break</code> exits and <code>continue</code> skips to the next round.</p><pre><code>for i in range(3):        # 0 1 2
+    print(i)
+for i, ch in enumerate("ab"):
+    print(i, ch)          # 0 a / 1 b
+n = 3
+while n > 0:
+    n -= 1</code></pre>`,
+q:[["o",`total = 0
+for i in range(1, 5):
+    total += i
+print(total)`,["10","15","6","4"],0,"range(1, 5) is 1, 2, 3, 4 and they add up to 10."],
+["f","Loop with index and value:\nfor i, ch in ___(\"abc\"):",["enumerate"],"enumerate yields (index, item) pairs."],
+["r","Order the lines to sum the even numbers from 0 to 10:",["total = 0","for i in range(11):","    if i % 2 == 0:","        total += i","print(total)"],"Start the total, loop, test for even, add, and print after the loop."]]},
+{n:"Collections",e:"📦",l:`<p>Four core containers:<br><b>list</b> <code>[1, 2]</code> ordered and changeable. <b>tuple</b> <code>(1, 2)</code> ordered and fixed. <b>dict</b> <code>{"a": 1}</code> key to value. <b>set</b> <code>{1, 2}</code> unique items.</p><pre><code>nums = [3, 1, 2]
+nums.append(9); nums.sort()
+d = {"a": 1}; d["b"] = 2
+d.get("z", 0)             # 0, no error
+len({1, 2, 2, 3})         # 3</code></pre>`,
+q:[["o",`d = {"a": 1}
+d["b"] = 2
+print(len(d), list(d))`,["1 ['a']","2 ['a', 'b']","2 [1, 2]","error"],1,"Two keys now exist, and list(d) lists the keys."],
+["f","Sort the list in place:\nnums = [3, 1, 2]\nnums.___()",["sort"],"list.sort() changes the list. sorted(list) returns a new one."],
+["o","print(len({1, 2, 2, 3, 3}))",["5","3","2","error"],1,"Sets drop duplicates, leaving {1, 2, 3}."],
+["b",["point = (1, 2)","point[0] = 10","print(point)"],1,"Tuples are immutable. Use a list if you need to change items."]]},
+{n:"Functions",e:"🧩",l:`<p>Functions package reusable code. <code>return</code> sends a value back (no return means <code>None</code>). Parameters can have defaults, and <code>*args</code> / <code>**kwargs</code> collect extra positional and keyword arguments.</p><pre><code>def add(a, b=10):
+    return a + b
+add(5)        # 15
+add(b=1, a=2) # 3
+def total(*args):
+    return sum(args)</code></pre><p>Variables made inside a function are local to it.</p>`,
+q:[["o",`def add(a, b=10):
+    return a + b
+print(add(5))`,["15","5","10","error"],0,"b falls back to its default of 10, so 5 + 10 = 15."],
+["b",["def square(n):","    n * n","print(square(4))"],1,"No return statement, so the function gives back None."],
+["f","Accept any number of arguments:\ndef total(*___):\n    return sum(args)",["args"],"*args packs the extra arguments into a tuple named args."]]},
+{n:"Comprehensions",e:"⚡",l:`<p>Comprehensions build collections in one readable line. <code>lambda</code> makes tiny anonymous functions, and <code>sorted(..., key=...)</code>, <code>map</code> and <code>filter</code> take functions as arguments.</p><pre><code>[x * x for x in range(5) if x % 2 == 0]
+{w: len(w) for w in ["hi", "yo"]}
+sorted(["pear", "fig"], key=len)
+list(map(lambda n: n + 1, [1, 2]))</code></pre>`,
+q:[["o","print([x*x for x in range(5) if x % 2 == 0])",["[0, 4, 16]","[0, 1, 4, 9, 16]","[4, 16]","[1, 9]"],0,"Only the even x values (0, 2, 4) pass the filter, then get squared."],
+["f","Sort words by length:\nsorted(words, key=___)",["len"],"key takes a function that scores each item. len scores by length."],
+["f","Build a dict of squares:\nsq = {n: n**2 ___ n in range(3)}",["for"],"Dict comprehensions use the same for clause as list comprehensions."]]},
+{n:"Classes & Objects",e:"🏗️",l:`<p>A <b>class</b> is a blueprint and an <b>object</b> is one thing built from it. <code>__init__</code> sets up each object, and <code>self</code> is the object itself. Inheritance reuses a parent class, and dunder methods like <code>__str__</code> customise behaviour.</p><pre><code>class Dog:
+    def __init__(self, name):
+        self.name = name
+    def speak(self):
+        return f"{self.name} says woof"
+class Puppy(Dog):
+    pass</code></pre>`,
+q:[["o",`class Dog:
+    def __init__(self, name):
+        self.name = name
+    def speak(self):
+        return self.name + " says woof"
+print(Dog("Rex").speak())`,["Rex says woof","Dog says woof","error","None"],0,"self.name was set to 'Rex' in __init__."],
+["f","Inherit from Dog:\nclass Puppy(___):",["Dog"],"The parent class goes in parentheses."],
+["b",["class Counter:","    def __init__(self):","        count = 0","    def inc(self):","        self.count += 1"],2,"count = 0 is a local variable. It must be self.count = 0 to live on the object."]]},
+{n:"Errors, Files & Modules",e:"🛟",l:`<p><code>try</code>/<code>except</code> handles errors, <code>finally</code> always runs, and <code>raise</code> throws your own. <code>with</code> closes files for you. <code>import</code> brings in the standard library (<code>json</code>, <code>random</code>, <code>pathlib</code>, <code>datetime</code>…).</p><pre><code>try:
+    n = int(text)
+except ValueError:
+    n = 0
+with open("a.txt") as f:
+    data = f.read()
+import json
+json.dumps({"x": 1})</code></pre>`,
+q:[["o",`try:
+    int("abc")
+except ValueError:
+    print("bad")
+finally:
+    print("done")`,["bad then done","done only","bad only","crash"],0,"int('abc') raises ValueError, except prints bad, and finally always prints done."],
+["f","Open a file safely:\n___ open(\"f.txt\") as f:",["with"],"with guarantees the file is closed, even after an error."],
+["r","Order the lines to print a dict as JSON text:",["import json","data = {\"x\": 1}","text = json.dumps(data)","print(text)"],"Import first, create the data, convert it, then print."]]},
+{n:"Advanced Python",e:"🚀",l:`<p><b>Generators</b> use <code>yield</code> to produce values lazily. <b>Decorators</b> wrap a function to add behaviour. <b>Dataclasses</b> cut class boilerplate. <b>Type hints</b> document intent, <b>context managers</b> manage resources, and <code>async</code>/<code>await</code> handles waiting concurrently.</p><pre><code>def gen():
+    yield 1
+    yield 2
+from dataclasses import dataclass
+@dataclass
+class P:
+    x: int
+def add(a: int, b: int) -> int: ...
+async def fetch(): await task()</code></pre>`,
+q:[["o",`def gen():
+    yield 1
+    yield 2
+g = gen()
+print(next(g), next(g))`,["1 2","[1, 2]","2 2","error"],0,"Each next() resumes the generator to its next yield."],
+["f","Make a dataclass:\n___\nclass P:\n    x: int",["@dataclass"],"The @dataclass decorator writes __init__ and __repr__ for you."],
+["o",`def deco(f):
+    def w(*a):
+        print("before")
+        return f(*a)
+    return w
+@deco
+def hi():
+    print("hi")
+hi()`,["hi only","before, then hi","hi, then before","error"],1,"@deco replaces hi with w, which prints before and then calls the original."]]}
+];
+const RK=["Newbie","Script Tinkerer","Coder","Developer","Pythonista","Pythonic Master"];
+let S={xp:0,done:{}},C=null;
+try{const s=JSON.parse(localStorage.getItem("pyq")||"null");if(s)S=s}catch(e){}
+const save=()=>{try{localStorage.setItem("pyq",JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+function hud(){const n=Object.keys(S.done).length,lv=Math.floor(S.xp/100)+1;
+$("st").innerHTML=`<span>${RK[Math.min(lv-1,5)]} · Lv ${lv}</span><span>⭐ ${S.xp} XP</span>`+(C&&C.q?`<span>${"❤️".repeat(C.h)||"💔"}</span>`:"");
+$("xb").style.width=(n/W.length*100)+"%"}
+function map(){C=null;hud();$("app").innerHTML=`<p>Work through ten worlds, from your first <code>print()</code> to generators and decorators. Read the short lesson, then clear the challenges. You have 3 hearts per world, and missed questions come back at the end.</p><div class="grid">`+W.map((w,i)=>{const lock=i>0&&!S.done[i-1];return `<button class="w ${S.done[i]?"d":""}" ${lock?"disabled":""} onclick="lesson(${i})"><b>${w.e} ${i+1}. ${esc(w.n)}</b><small>${S.done[i]?"Cleared ✓":lock?"Locked":w.q.length+" challenges"}</small></button>`}).join("")+`</div>`+(Object.keys(S.done).length==W.length?`<div class="card" style="margin-top:14px"><b>You’ve cleared every world.</b> Keep going by building a small project: a to-do CLI, a text adventure or a web scraper. Replay any world to sharpen up.</div>`:"")+`<p style="margin-top:14px"><button class="btn ghost" onclick="if(confirm('Reset all progress?')){S={xp:0,done:{}};save();map()}">Reset progress</button></p>`}
+function lesson(i){C={w:i,h:3,q:null};hud();$("app").innerHTML=`<div class="card"><h2 style="margin-top:0">${W[i].e} ${esc(W[i].n)}</h2>${W[i].l}<p><button class="btn" onclick="start()">Start challenges</button> <button class="btn ghost" onclick="map()">Back to map</button></p></div>`}
+function start(){C.q=W[C.w].q.map((_,i)=>i);C.n=C.q.length;C.d=0;C.h=3;C.re=false;ask()}
+function ask(){hud();const q=W[C.w].q[C.q[0]],t=q[0];C.k=t;C.lock=false;C.b=[];
+let h=`<div class="card"><div class="t">Challenge ${Math.min(C.d+1,C.n)} of ${C.n}</div>`;
+if(t=="o")h+=`<p>What does this print?</p><pre><code>${esc(q[1])}</code></pre>`+q[2].map((o,i)=>`<button class="o" onclick="pick(${i})">${esc(o)}</button>`).join("");
+if(t=="f")h+=`<p>Fill in the blank.</p><pre><code>${esc(q[1]).replace("___",`</code><input class="f" id="fi" aria-label="answer" autocomplete="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.key=='Enter')fill()"><code>`)}</code></pre><button class="btn" onclick="fill()">Check</button>`;
+if(t=="b")h+=`<p>One line has a bug. Tap it.</p>`+q[1].map((l,i)=>`<button class="o" onclick="pick(${i})">${esc(l)}</button>`).join("");
+if(t=="r"){C.p=sh(q[2].map((l,i)=>i));if(C.p.join()==q[2].map((l,i)=>i).join())C.p.reverse();h+=`<p>${esc(q[1])}</p><div class="t">Your program (tap a line to remove it)</div><div class="slot" id="sl"></div><div class="t">Lines</div><div class="pool" id="pl"></div><p><button class="btn" onclick="order()">Check</button></p>`}
+$("app").innerHTML=h+`<div id="fb"></div></div>`;if(t=="r")drawR();if(t=="f")$("fi").focus()}
+function drawR(){const q=W[C.w].q[C.q[0]][2];$("sl").innerHTML=C.b.map((id,k)=>`<button class="o" onclick="C.b.splice(${k},1);drawR()">${esc(q[id])}</button>`).join("");
+$("pl").innerHTML=C.p.filter(id=>!C.b.includes(id)).map(id=>`<button class="o" onclick="C.b.push(${id});drawR()">${esc(q[id])}</button>`).join("")}
+function pick(i){if(C.lock)return;const q=W[C.w].q[C.q[0]],ans=C.k=="o"?q[3]:q[2],bs=document.querySelectorAll(".o");
+bs.forEach((b,k)=>{b.disabled=true;if(k==ans)b.classList.add("ok")});if(i!=ans)bs[i].classList.add("no");res(i==ans,q[C.k=="o"?4:3])}
+function fill(){if(C.lock)return;const q=W[C.w].q[C.q[0]],v=$("fi").value.trim();res(q[2].includes(v),q[3]+(q[2].includes(v)?"":` The answer is <code>${esc(q[2][0])}</code>.`))}
+function order(){if(C.lock)return;const q=W[C.w].q[C.q[0]];res(C.b.length==q[2].length&&C.b.every((id,k)=>id==k),q[3])}
+function res(ok,ex){C.lock=true;C.ok=ok;if(ok){S.xp+=C.re?5:10}else{C.h--;C.q.push(C.q[0]);C.re=true;C.n++}
+save();hud();$("fb").innerHTML=`<div class="fb ${ok?"g":"x"}"><b>${ok?"Correct! +"+(C.re?5:10)+" XP":"Not quite."}</b> ${ex}</div><p><button class="btn" onclick="nxt()">${C.h<=0&&!ok?"Continue":"Next"}</button></p>`;
+if(ok)C.d++}
+function nxt(){if(!C.ok&&C.h<=0){hud();$("app").innerHTML=`<div class="card"><h2 style="margin-top:0">Out of hearts 💔</h2><p>That’s how practice works. Re-read the lesson and try again. Your XP is safe.</p><button class="btn" onclick="lesson(${C.w})">Review lesson</button></div>`;return}
+C.q.shift();if(!C.q.length)return fin();ask()}
+function fin(){const i=C.w;S.xp+=20;const first=!S.done[i];S.done[i]=true;save();hud();
+$("app").innerHTML=`<div class="card"><h2 style="margin-top:0">${W[i].e} World ${i+1} cleared!</h2><p>${first?"+20 XP bonus. ":""}You finished <b>${esc(W[i].n)}</b> with ${C.h} heart${C.h==1?"":"s"} left.</p>${i<W.length-1?`<button class="btn" onclick="lesson(${i+1})">Next world</button> `:""}<button class="btn ghost" onclick="map()">World map</button></div>`}
+map();
+</script></body></html>
